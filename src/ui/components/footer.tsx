@@ -66,7 +66,7 @@ export async function Footer({ channel }: { channel: string }) {
 				<div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:gap-12">
 					{/* Brand */}
 					<div className="col-span-2 md:col-span-1">
-						<Link href={`/${channel}`} prefetch={false} className="mb-4 inline-block">
+						<Link href="/" prefetch={false} className="mb-4 inline-block">
 							<Logo className="h-7 w-auto" inverted />
 						</Link>
 						<p className="mt-4 max-w-xs text-sm leading-relaxed text-neutral-400">
