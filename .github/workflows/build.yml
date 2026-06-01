@@ -49,20 +49,18 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Update image tag in k3s repo
-        uses: actions/checkout@v4
-        with:
-          repository: shadoll/k3s
-          token: ${{ secrets.K3S_DEPLOY_TOKEN }}
-          path: k3s-repo
-
-      - name: Patch deployment tag and push
+      - name: Checkout k3s repo and update image tag
+        env:
+          DEPLOY_TOKEN: ${{ secrets.K3S_DEPLOY_TOKEN }}
+          RUN_NUMBER: ${{ github.run_number }}
         run: |
-          sed -i "s|ghcr.io/shkafnik/storefront:[^ ]*|ghcr.io/shkafnik/storefront:${{ github.run_number }}|" \
+          git clone "https://x-access-token:${DEPLOY_TOKEN}@github.com/shadoll/k3s.git" k3s-repo
+          sed -i "s|ghcr.io/shkafnik/storefront:[^ ]*|ghcr.io/shkafnik/storefront:${RUN_NUMBER}|" \
             k3s-repo/clusters/rh/apps/saleor-storefront/deployment.yaml
           cd k3s-repo
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add clusters/rh/apps/saleor-storefront/deployment.yaml
-          git commit -m "chore(storefront): deploy image :${{ github.run_number }}" || echo "No changes"
+          git diff --cached --quiet && echo "No changes, skipping commit" && exit 0
+          git commit -m "chore(storefront): deploy image :${RUN_NUMBER}"
           git push
