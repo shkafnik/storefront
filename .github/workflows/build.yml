@@ -11,7 +11,7 @@ env:
   IMAGE: ghcr.io/shkafnik/storefront
   SALEOR_API_URL: https://shale.rh.shadoll.dev/graphql/
   STOREFRONT_URL: https://shop.rh.shadoll.dev
-  DEFAULT_CHANNEL: default-channel
+  DEFAULT_CHANNEL: shkafnik-retail
 
 jobs:
   build-and-push:

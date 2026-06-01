@@ -20,7 +20,8 @@ deployed at `https://shop.rh.shadoll.dev`.
 
 | Object           | ID / Slug                                                              |
 | ---------------- | ---------------------------------------------------------------------- |
-| Channel          | `default-channel` (`Q2hhbm5lbDox`)                                    |
+| Channel (active) | `shkafnik-retail` (`Q2hhbm5lbDoy`) — UAH, Ukraine                     |
+| Channel (old)    | `default-channel` (`Q2hhbm5lbDox`) — USD, US — deactivate/delete      |
 | Default Warehouse| `V2FyZWhvdXNlOjM1NjFhNmMxLTY1OWEtNGU3Ni04YzkyLWRjZWUyMjQ5MzI3NQ==`  |
 
 ---
@@ -32,7 +33,7 @@ Local `.env.local` (not committed):
 ```env
 NEXT_PUBLIC_SALEOR_API_URL=https://shale.rh.shadoll.dev/graphql/
 NEXT_PUBLIC_STOREFRONT_URL=https://shop.rh.shadoll.dev
-NEXT_PUBLIC_DEFAULT_CHANNEL=default-channel
+NEXT_PUBLIC_DEFAULT_CHANNEL=shkafnik-retail
 ```
 
 Build-time environment variables are baked in via GitHub Actions
