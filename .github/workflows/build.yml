@@ -48,3 +48,21 @@ jobs:
             NEXT_PUBLIC_DEFAULT_CHANNEL=${{ env.DEFAULT_CHANNEL }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Update image tag in k3s repo
+        uses: actions/checkout@v4
+        with:
+          repository: shadoll/k3s
+          token: ${{ secrets.K3S_DEPLOY_TOKEN }}
+          path: k3s-repo
+
+      - name: Patch deployment tag and push
+        run: |
+          sed -i "s|ghcr.io/shkafnik/storefront:[^ ]*|ghcr.io/shkafnik/storefront:${{ github.run_number }}|" \
+            k3s-repo/clusters/rh/apps/saleor-storefront/deployment.yaml
+          cd k3s-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add clusters/rh/apps/saleor-storefront/deployment.yaml
+          git commit -m "chore(storefront): deploy image :${{ github.run_number }}" || echo "No changes"
+          git push
