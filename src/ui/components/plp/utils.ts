@@ -55,7 +55,7 @@ function extractSizesFromVariants(variants: ProductListItemFragment["variants"])
 /**
  * Transform Saleor product data to ProductCard format
  */
-export function transformToProductCard(product: ProductListItemFragment, channel: string = ""): ProductCardData {
+export function transformToProductCard(product: ProductListItemFragment, _channel: string = ""): ProductCardData {
 	const startPrice = product.pricing?.priceRange?.start?.gross;
 	const undiscountedStartPrice = product.pricing?.priceRangeUndiscounted?.start?.gross;
 
